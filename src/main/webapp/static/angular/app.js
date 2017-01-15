@@ -1,0 +1,1 @@
+var app = angular.module('clusterHeadacheApp', ['ngMaterial', 'ngAnimate', 'ngAria', 'ngMessages', 'picardy.fontawesome', 'mdPickers']);
