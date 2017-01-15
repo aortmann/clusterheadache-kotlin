@@ -16,8 +16,6 @@ import org.springframework.web.servlet.ModelAndView
 open class IndexController {
     @RequestMapping("/") open fun index(map: ModelMap): ModelAndView {
         val mv = ModelAndView("index")
-
-        mv.addObject("message", "asd")
         return mv
     }
 }
