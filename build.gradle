@@ -26,6 +26,7 @@ dependencies {
     compile "org.springframework:spring-context-support:$springVersion"
     compile "org.springframework:spring-webmvc:$springVersion"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.8.6"
     compile 'org.freemarker:freemarker:2.3.25-incubating'
 
     compile 'com.google.api-client:google-api-client:1.22.0'
