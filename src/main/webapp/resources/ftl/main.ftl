@@ -41,24 +41,14 @@
                     <input ng-model="homeCtrl.addForm.duration">
                 </md-input-container>
                 <md-card-title-text>
-                    <span class="md-subhead">Dolor</span>
+                    <span class="md-subhead">Nivel de dolor</span>
                 </md-card-title-text>
-                <md-input-container class="md-block">
-                    <label>Desde</label>
-                    <md-select ng-model="homeCtrl.addForm.from">
-                        <md-option ng-repeat="option in [1,2,3,4,5,6,7,8,9,10]" ng-value="option">
-                            {{option}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
-                <md-input-container class="md-block">
-                    <label>Hasta</label>
-                    <md-select ng-model="homeCtrl.addForm.to">
-                        <md-option ng-repeat="option in [1,2,3,4,5,6,7,8,9,10]" ng-value="option">
-                            {{option}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
+                <md-slider-container class="md-block">
+                    <md-slider md-discrete ng-model="homeCtrl.addForm.painLevel" min="1" max="10"></md-slider>
+                    <md-input-container>
+                        <input type="number" ng-model="homeCtrl.addForm.painLevel">
+                    </md-input-container>
+                </md-slider-container>
             </md-card-content>
 
             <md-card-actions layout="row" layout-align="end center">
