@@ -25,3 +25,7 @@ input::-webkit-inner-spin-button,
 input::-webkit-clear-button {
     display: none;
 }
+
+/*.date-time-data:first-letter {
+    text-transform:capitalize;
+}*/
