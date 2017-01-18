@@ -3,6 +3,9 @@
         <md-nav-item md-nav-click="goto('add')" name="add">
             <fa name="medkit" size="large" aria-hidden="true"></fa>
         </md-nav-item>
+        <md-nav-item md-nav-click="goto('history')" name="history">
+            <fa name="history" size="large" aria-hidden="true"></fa>
+        </md-nav-item>
         <md-nav-item md-nav-click="goto('statistics')" name="statistics">
             <fa name="pie-chart" size="large" aria-hidden="true"></fa>
         </md-nav-item>
@@ -58,6 +61,32 @@
         </md-card>
     </div>
 
+    <div class="ext-content" ng-show="homeCtrl.currentNavItem == 'history'">
+        <#list history as h>
+            <md-card>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">${h.dateTime?string("d/MMM/yyyy HH:mm")}</span>
+                        <span class="md-subhead">${h.where}</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <!--md-card-content layout="row" layout-align="space-between">
+                    <div class=""></div>
+                    <md-card-actions layout="column">
+                        <md-button class="md-icon-button" aria-label="Favorite">
+                            <fa name="pie-chart" size="large" aria-hidden="true"></fa>
+                        </md-button>
+                        <md-button class="md-icon-button" aria-label="Settings">
+                            <fa name="pie-chart" size="large" aria-hidden="true"></fa>
+                        </md-button>
+                        <md-button class="md-icon-button" aria-label="Share">
+                            <fa name="pie-chart" size="large" aria-hidden="true"></fa>
+                        </md-button>
+                    </md-card-actions>
+                </md-card-content-->
+            </md-card>
+        </#list>
+    </div>
 
     <div class="ext-content" ng-show="homeCtrl.currentNavItem == 'statistics'">
         Statistics

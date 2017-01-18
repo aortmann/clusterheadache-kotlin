@@ -2,7 +2,7 @@ md-content {
     background: url("/static/img/Medic_FO4.png") no-repeat right bottom;
 }
 
-md-content > div:first-of-type {
+md-content > div.ext-content {
     opacity: 0.88;
 }
 
