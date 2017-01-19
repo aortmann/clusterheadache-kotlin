@@ -1,17 +1,17 @@
-<md-content class="md-padding" ng-controller="HomeController as homeCtrl">
+<md-content ng-controller="HomeController as homeCtrl">
 	<md-nav-bar md-selected-nav-item="homeCtrl.currentNavItem" nav-bar-aria-label="navigation links">
-		<md-nav-item md-nav-click="goto('add')" name="add">
+		<md-nav-item md-nav-href="#add" name="add">
 			<fa name="medkit" size="large" aria-hidden="true"></fa>
 		</md-nav-item>
-		<md-nav-item md-nav-click="goto('history')" name="history">
+		<md-nav-item md-nav-href="#history" name="history">
 			<fa name="history" size="large" aria-hidden="true"></fa>
 		</md-nav-item>
-		<md-nav-item md-nav-click="goto('statistics')" name="statistics">
+		<md-nav-item md-nav-href="#statistics" name="statistics">
 			<fa name="pie-chart" size="large" aria-hidden="true"></fa>
 		</md-nav-item>
 	</md-nav-bar>
 
-	<div class="ext-content" ng-if="homeCtrl.currentNavItem == 'add'">
+	<div class="ext-content" ng-if="homeCtrl.getCurrentNavItem() == 'add'">
 		<md-card>
 			<md-card-content>
 				<md-input-container style="margin-top: 18px;margin-bottom: 0px;">
@@ -61,16 +61,18 @@
 		</md-card>
 	</div>
 
-	<div class="ext-content" ng-if="homeCtrl.currentNavItem == 'history'" ng-init="homeCtrl.getHistoryData()">
+	<div class="ext-content" ng-if="homeCtrl.getCurrentNavItem() == 'history'" ng-init="homeCtrl.getHistoryData()">
 		<md-card ng-repeat="history in homeCtrl.historyData">
 			<md-card-title>
 				<md-card-title-text>
 					<span class="md-headline date-time-data">{{homeCtrl.moment(history.dateTime).calendar()}}</span>
 					<span class="md-subhead">{{history.where}}</span>
 				</md-card-title-text>
+                <md-card-title-media>
+                    <fa ng-attr-name='{{"thermometer-" + homeCtrl.getPainLevel(history.painLevel).rounded}}' alt="Pain level" size="large" aria-hidden="true" ng-style='homeCtrl.getPainLevel(history.painLevel).styles'></fa>
+                </md-card-title-media>
 			</md-card-title>
 			<md-card-content layout="row" layout-align="space-between">
-				<div class=""></div>
 				<!--md-card-actions layout="column">
 					<md-button class="md-icon-button" aria-label="Favorite">
 						<fa name="pie-chart" size="large" aria-hidden="true"></fa>
@@ -82,12 +84,14 @@
 						<fa name="pie-chart" size="large" aria-hidden="true"></fa>
 					</md-button>
 				</md-card-actions!-->
-				<fa ng-attr-name='{{"thermometer-" + homeCtrl.getPainLevel(history.painLevel).rounded}}' size="large" aria-hidden="true" ng-style='homeCtrl.getPainLevel(history.painLevel).color'></fa>
 			</md-card-content>
+            <md-card-footer>
+
+            </md-card-footer>
 		</md-card>
 	</div>
 
-	<div class="ext-content" ng-if="homeCtrl.currentNavItem == 'statistics'">
+	<div class="ext-content" ng-if="homeCtrl.getCurrentNavItem() == 'statistics'">
 		Statistics
 	</div>
 

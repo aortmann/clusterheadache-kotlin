@@ -1,5 +1,6 @@
 md-content {
-    background: url("/static/img/Medic_FO4.png") no-repeat right bottom;
+    background: url("/static/img/Medic_FO4.png") no-repeat fixed right bottom;
+    height: 100%;
 }
 
 md-content > div.ext-content {
@@ -29,3 +30,7 @@ input::-webkit-clear-button {
 /*.date-time-data:first-letter {
     text-transform:capitalize;
 }*/
+
+md-card > md-card-title {
+    padding: 24px 16px 0px;
+}

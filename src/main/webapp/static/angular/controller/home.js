@@ -1,9 +1,14 @@
-app.controller('HomeController', ['$q', '$http', function ($q, $http) {
+app.controller('HomeController', ['$q', '$http', '$location', function ($q, $http, $location) {
 	var homeCtrl = this;
 	homeCtrl.moment = moment;
-	homeCtrl.currentNavItem = 'add';
 
-	homeCtrl.reset = function () {
+    homeCtrl.getCurrentNavItem = function() {
+    	if($location.hash() == "") return "add";
+        return $location.hash().replace(/(^#\/|\/$)/g, '');
+    };
+    homeCtrl.currentNavItem = homeCtrl.getCurrentNavItem();
+
+    homeCtrl.reset = function () {
 		homeCtrl.addForm = {
 			date: new Date(),
 			time: new Date()
@@ -72,7 +77,7 @@ app.controller('HomeController', ['$q', '$http', function ($q, $http) {
 		}
 
 		return {
-			color: {color: color},
+			styles: {color: color},
 			rounded: pl
         }
 	}

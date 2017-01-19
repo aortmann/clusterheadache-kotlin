@@ -26,18 +26,5 @@
 
         <script src="/static/angular/app.js"></script>
         <script src="/static/angular/controller/home.js"></script>
-
-        <script type="application/javascript">
-	        moment.locale('es', {
-		        calendar : {
-			        lastDay : '[Yesterday at] LT',
-			        sameDay : '[Today at] LT',
-			        nextDay : '[Tomorrow at] LT',
-			        lastWeek : '[last] dddd [at] LT',
-			        nextWeek : 'dddd [at] LT',
-			        sameElse : 'L'
-		        }
-	        });
-        </script>
     </body>
 </html>
