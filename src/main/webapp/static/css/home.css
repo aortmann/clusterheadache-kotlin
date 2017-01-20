@@ -44,3 +44,7 @@ md-card-avatar > span {
         line-height: 40px !important;
     }
 }
+
+.md-scroll-mask {
+    position: initial;
+}

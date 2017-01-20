@@ -1,12 +1,17 @@
 <md-card ng-repeat="history in ::homeCtrl.historyData">
     <md-card-header>
         <md-card-avatar>
-            <fa ng-attr-name='{{"thermometer-" + homeCtrl.getPainLevel(history.painLevel).rounded}}' alt="Pain level" size="large" aria-hidden="true" ng-style='homeCtrl.getPainLevel(history.painLevel).styles'></fa>
+            <fa ng-attr-name='{{"thermometer-" + homeCtrl.getPainLevel(history.painLevel).rounded}}' size="large" aria-hidden="true" ng-style='::homeCtrl.getPainLevel(history.painLevel).styles'></fa>
         </md-card-avatar>
         <md-card-header-text>
             <span class="md-title date-time-data">{{::homeCtrl.moment(history.dateTime).calendar()}}</span>
-            <span class="md-subhead">{{::history.where}} - {{::homeCtrl.moment.duration(homeCtrl.moment(history.time).diff(history.duration)).humanize()}}</span>
+            <span class="md-subhead" ng-if="::!history.duration">{{::history.where}} - {{::homeCtrl.moment.duration(homeCtrl.moment(history.time).diff(history.duration)).humanize()}}</span>
         </md-card-header-text>
+        <md-card-avatar ng-if="::!history.duration">
+            <md-button class="md-icon-button">
+                <fa name="exclamation-triangle" size="large" aria-hidden="true" ng-style="::{'color': '#FFEB3B'}"></fa>
+            </md-button>
+        </md-card-avatar>
     </md-card-header>
     <!--md-card-title>
         <md-card-title-text>

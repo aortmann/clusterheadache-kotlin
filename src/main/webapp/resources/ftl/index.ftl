@@ -26,5 +26,13 @@
 
         <script src="/static/angular/app.js"></script>
         <script src="/static/angular/controller/home.js"></script>
+
+        <script type="application/javascript">
+            moment.locale('es', {
+                calendar : {
+                    sameElse : '[el] DD/MM/YYYY [a las] LT'
+                }
+            });
+        </script>
     </body>
 </html>

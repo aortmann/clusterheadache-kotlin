@@ -14,21 +14,26 @@
                 md-selected-item="whereSelected"
                 md-search-text="homeCtrl.addForm.where"
                 md-items="where in homeCtrl.whereOptions(homeCtrl.addForm.where)"
-                md-item-text="where" ,
+                md-item-text="where"
                 md-min-length="0"
                 md-floating-label="&iquest;D&oacute;nde est&aacute;s?">
             <span md-highlight-text="searchText">{{where}}</span>
         </md-autocomplete>
 
-        <md-input-container class="md-block">
-            <label>&iquest;Tomaste algo?</label>
-            <input ng-model="homeCtrl.addForm.medication">
-        </md-input-container>
+        <md-autocomplete
+                md-selected-item="medicationSelected"
+                md-search-text="homeCtrl.addForm.medication"
+                md-items="medication in homeCtrl.medicationOptions(homeCtrl.addForm.medication)"
+                md-item-text="medication"
+                md-min-length="0"
+                md-floating-label="Medicaci&oacute;n">
+            <span md-highlight-text="searchText">{{medication}}</span>
+        </md-autocomplete>
 
-        <md-input-container class="md-block">
+        <!--md-input-container class="md-block">
             <label>Duraci&oacute;n</label>
             <input ng-model="homeCtrl.addForm.duration">
-        </md-input-container>
+        </md-input-container-->
         <md-card-title-text>
             <span class="md-subhead">Nivel de dolor</span>
         </md-card-title-text>
