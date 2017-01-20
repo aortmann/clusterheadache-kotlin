@@ -27,10 +27,20 @@ input::-webkit-clear-button {
     display: none;
 }
 
-/*.date-time-data:first-letter {
-    text-transform:capitalize;
-}*/
-
 md-card > md-card-title {
     padding: 24px 16px 0px;
+}
+
+md-card-avatar {
+    text-align: center;
+}
+
+md-card-avatar > span {
+    line-height: 40px !important;
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    md-card-avatar {
+        line-height: 40px !important;
+    }
 }
