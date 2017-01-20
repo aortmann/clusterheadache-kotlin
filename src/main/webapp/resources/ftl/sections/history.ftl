@@ -5,7 +5,7 @@
         </md-card-avatar>
         <md-card-header-text>
             <span class="md-title date-time-data">{{::homeCtrl.moment(history.dateTime).calendar()}}</span>
-            <span class="md-subhead">{{::history.where}}<span ng-if="::history.duration">- {{::homeCtrl.moment.duration(homeCtrl.moment(history.time).diff(history.duration)).humanize()}}</span></span>
+            <span class="md-subhead">{{::history.where}}<span ng-if="::history.duration"> - {{::homeCtrl.moment.duration(homeCtrl.moment(history.time).diff(history.duration)).humanize()}}</span></span>
         </md-card-header-text>
         <md-card-avatar ng-if="::!history.duration">
             <md-button class="md-icon-button">
