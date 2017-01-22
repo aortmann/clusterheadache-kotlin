@@ -51,6 +51,7 @@ open class HistoryController @Autowired constructor(private val sheetsService: S
         val transformedData = ArrayList<RecordData>()
         val dateTimeFormat = SimpleDateFormat("d/MM/yyyy HH:mm")
         val timeFormat = SimpleDateFormat("HH:mm")
+
         data.forEach { r ->
             val duration = {
                 try {
@@ -59,10 +60,10 @@ open class HistoryController @Autowired constructor(private val sheetsService: S
                     null
                 }
             }.invoke()
-            transformedData.add(RecordData(dateTimeFormat.parse("${r[0]} ${r[1]}"), timeFormat.parse("${r[1]}"), r[2].toString(), r[3].toString(), r[4].toString(), duration, Integer.valueOf(r[6].toString())))
+            transformedData.add(RecordData(dateTimeFormat.parse("${r[0]} ${r[1]}"), timeFormat.parse("${r[1]}"), r[2].toString(), r[3].toString(), r[4].toString().split(","), duration, Integer.valueOf(r[6].toString())))
         }
         return transformedData.reversed()
     }
 }
 
-data class RecordData(val dateTime: Date, val time: Date, val description: String, val where: String, val medication: String, val duration:Date?, val painLevel: Int)
+data class RecordData(val dateTime: Date, val time: Date, val description: String, val where: String, val medications: List<String>, val duration:Date?, val painLevel: Int)

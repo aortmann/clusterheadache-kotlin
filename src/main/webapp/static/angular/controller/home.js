@@ -29,7 +29,7 @@ app.controller('HomeController', ['$q', '$http', '$location', '$mdDialog', funct
                 homeCtrl.addForm.time,
                 homeCtrl.addForm.feel,
                 homeCtrl.addForm.where,
-                homeCtrl.addForm.medication,
+                [homeCtrl.addForm.medications], //solucionar esto y que se banque mdchips
                 homeCtrl.addForm.duration,
                 homeCtrl.addForm.painLevel],
             headers: {
@@ -83,20 +83,7 @@ app.controller('HomeController', ['$q', '$http', '$location', '$mdDialog', funct
         $mdDialog.show({
             parent: parentEl,
             targetEvent: $event,
-            template:
-            '<md-dialog>' +
-            '  <md-dialog-content class="md-dialog-content">' +
-            '   <fa name="pencil-square-o" size="1" aria-hidden="true" class="edit-info-inside-dialog"></fa>' +
-            '   <p><b>Dolor:</b> {{::history.painLevel}} ({{::getHumanizedPainLevel(history.painLevel)}})</p>' +
-            '   <p><b>Sent&iacute;:</b> {{::history.description}}</p>' +
-            '   <p><b>Tom&eacute;:</b> {{::capitalize(history.medication)}}&nbsp;<fa name="plus-square-o" size="1" aria-hidden="true" class="add-more-medication-inside-dialog"></fa></p>' +
-            '  </md-dialog-content>' +
-            '  <!--md-dialog-actions>' +
-            '    <md-button ng-click="closeDialog()" class="md-primary">' +
-            '      Close Dialog' +
-            '    </md-button>' +
-            '  </md-dialog-actions-->' +
-            '</md-dialog>',
+            templateUrl: '/static/angular/templates/more-info-history-dialog.tmpl',
             locals: {
                 history: history
             },
@@ -105,6 +92,7 @@ app.controller('HomeController', ['$q', '$http', '$location', '$mdDialog', funct
             escapeToClose: true
         });
         function DialogController($scope, $mdDialog, history) {
+            $scope.moment = moment;
             $scope.history = history;
             $scope.getHumanizedPainLevel = function (painLevel) {
                 switch (painLevel) {
@@ -128,9 +116,32 @@ app.controller('HomeController', ['$q', '$http', '$location', '$mdDialog', funct
             $scope.capitalize = function capitalize(s) {
                 return s && s[0].toUpperCase() + s.slice(1);
             };
-            $scope.closeDialog = function() {
+            $scope.close = function() {
                 $mdDialog.hide();
             };
+        }
+    };
+
+    homeCtrl.showPendingDialog = function (history, $event) {
+        var parentEl = angular.element(document.body);
+        $mdDialog.show({
+            parent: parentEl,
+            targetEvent: $event,
+            templateUrl: '/static/angular/templates/pending-history-dialog.tmpl',
+            locals: {
+                history: history
+            },
+            controller: DialogController,
+            clickOutsideToClose: true,
+            escapeToClose: true
+        });
+        function DialogController($scope, $mdDialog, history) {
+            $scope.moment = moment;
+            $scope.history = history;
+            $scope.close = function() {
+                $mdDialog.hide();
+            };
+            $scope.time = new Date();
         }
     };
 
