@@ -39,7 +39,7 @@ md-card-avatar > span {
     line-height: 40px !important;
 }
 
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
     md-card-avatar {
         line-height: 40px !important;
     }
@@ -47,4 +47,34 @@ md-card-avatar > span {
 
 .md-scroll-mask {
     position: initial;
+}
+
+md-card-avatar {
+    margin-right: 0px !important;
+}
+
+md-card-header-text .md-title:first-letter {
+    text-transform: capitalize;
+}
+
+md-card-footer {
+    text-align: center;
+    background-color: gray;
+    font-size: 18px;
+}
+
+md-card-footer > span {
+    color: #FFEB3B;
+}
+
+.edit-info-inside-dialog {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 10px;
+}
+
+.add-more-medication-inside-dialog {
+    position: absolute;
+    padding-top: 1px;
 }

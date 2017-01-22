@@ -1,4 +1,4 @@
-app.controller('HomeController', ['$q', '$http', '$location', '$timeout', function ($q, $http, $location, $timeout) {
+app.controller('HomeController', ['$q', '$http', '$location', '$mdDialog', function ($q, $http, $location, $mdDialog) {
     var homeCtrl = this;
     homeCtrl.moment = moment;
 
@@ -78,6 +78,61 @@ app.controller('HomeController', ['$q', '$http', '$location', '$timeout', functi
         }
     };
 
+    homeCtrl.showMoreInfoDialog = function (history, $event) {
+        var parentEl = angular.element(document.body);
+        $mdDialog.show({
+            parent: parentEl,
+            targetEvent: $event,
+            template:
+            '<md-dialog>' +
+            '  <md-dialog-content class="md-dialog-content">' +
+            '   <fa name="pencil-square-o" size="1" aria-hidden="true" class="edit-info-inside-dialog"></fa>' +
+            '   <p><b>Dolor:</b> {{::history.painLevel}} ({{::getHumanizedPainLevel(history.painLevel)}})</p>' +
+            '   <p><b>Sent&iacute;:</b> {{::history.description}}</p>' +
+            '   <p><b>Tom&eacute;:</b> {{::capitalize(history.medication)}}&nbsp;<fa name="plus-square-o" size="1" aria-hidden="true" class="add-more-medication-inside-dialog"></fa></p>' +
+            '  </md-dialog-content>' +
+            '  <!--md-dialog-actions>' +
+            '    <md-button ng-click="closeDialog()" class="md-primary">' +
+            '      Close Dialog' +
+            '    </md-button>' +
+            '  </md-dialog-actions-->' +
+            '</md-dialog>',
+            locals: {
+                history: history
+            },
+            controller: DialogController,
+            clickOutsideToClose: true,
+            escapeToClose: true
+        });
+        function DialogController($scope, $mdDialog, history) {
+            $scope.history = history;
+            $scope.getHumanizedPainLevel = function (painLevel) {
+                switch (painLevel) {
+                    case 0:
+                    case 1:
+                    case 2:
+                    case 3:
+                        return "Bajo";
+                        break;
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
+                        return "Medio";
+                        break;
+                    default:
+                        return "Alto";
+                        break;
+                }
+            };
+            $scope.capitalize = function capitalize(s) {
+                return s && s[0].toUpperCase() + s.slice(1);
+            };
+            $scope.closeDialog = function() {
+                $mdDialog.hide();
+            };
+        }
+    };
 
     function createFilterFor(query) {
         var lowercaseQuery = angular.lowercase(query);
