@@ -20,7 +20,8 @@
             <span md-highlight-text="searchText">{{where}}</span>
         </md-autocomplete>
 
-        <md-autocomplete <!-- meter md-chips -->
+	    <!-- meter md-chips -->
+        <md-autocomplete
                 md-selected-item="medicationSelected"
                 md-search-text="homeCtrl.addForm.medication"
                 md-items="medication in homeCtrl.medicationOptions(homeCtrl.addForm.medication)"
