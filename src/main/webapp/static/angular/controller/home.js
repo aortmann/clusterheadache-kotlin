@@ -153,6 +153,7 @@ app.controller('HomeController', ['$q', '$http', '$location', '$mdDialog', funct
                         'Content-Type': 'application/json'
                     }
                 });
+	            history.duration = time;
                 $scope.close();
             };
 

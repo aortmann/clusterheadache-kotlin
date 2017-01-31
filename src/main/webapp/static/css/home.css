@@ -102,3 +102,8 @@ md-dialog {
     max-width: 500px;
     margin: 10px 10px 10px 10px;
 }
+
+md-dialog md-dialog-content md-dialog-actions {
+    float: right;
+    padding: 10px;
+}
