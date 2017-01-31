@@ -73,12 +73,11 @@ open class SaveController @Autowired constructor(private val sheetsService: Shee
 
         val writeData: List<List<Any>> = mutableListOf(listOf(data.time))
 
-        val endTimeCell = data.cell.split("!")
-        endTimeCell.get(1).toCharArray()[0] = 'F'
+        val endTimeCell = data.cell.replace("![A-Z]".toRegex(), "!F")
 
-        val vr = ValueRange().setRange(endTimeCell.toString()).setValues(writeData).setMajorDimension("ROWS")
+        val vr = ValueRange().setRange(endTimeCell).setValues(writeData).setMajorDimension("ROWS")
         sheetsService.spreadsheets().values()
-                .update(spreadsheetId, endTimeCell.toString(), vr)
+                .update(spreadsheetId, endTimeCell, vr)
                 .setValueInputOption("RAW")
                 .execute()
 
