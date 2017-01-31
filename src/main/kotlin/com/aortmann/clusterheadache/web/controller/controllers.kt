@@ -28,7 +28,7 @@ open class AddController @Autowired constructor(private val sheetsService: Sheet
         val spreadsheetId = "1c1Y3z1PNcF6vtrresU2co9djEsjjcfBS4ygIVtUfhG4"
 
         val lastRow = sheetsService.spreadsheets().values().get(spreadsheetId, "Datos!A:A").execute().getValues().size
-        val writeRange = "Sheet1!A${lastRow + 1}"
+        val writeRange = "Datos!A${lastRow + 1}"
 
         val writeData: List<List<Any>> = mutableListOf(data)
 
@@ -52,7 +52,7 @@ open class HistoryController @Autowired constructor(private val sheetsService: S
         val dateTimeFormat = SimpleDateFormat("d/MM/yyyy HH:mm")
         val timeFormat = SimpleDateFormat("HH:mm")
 
-        data.forEach { r ->
+        data.forEachIndexed { i, r ->
             val duration = {
                 try {
                     timeFormat.parse(r[5].toString())
@@ -60,10 +60,31 @@ open class HistoryController @Autowired constructor(private val sheetsService: S
                     null
                 }
             }.invoke()
-            transformedData.add(RecordData(dateTimeFormat.parse("${r[0]} ${r[1]}"), timeFormat.parse("${r[1]}"), r[2].toString(), r[3].toString(), r[4].toString().split(","), duration, Integer.valueOf(r[6].toString())))
+            transformedData.add(RecordData("Datos!A${3 + i}", dateTimeFormat.parse("${r[0]} ${r[1]}"), timeFormat.parse("${r[1]}"), r[2].toString(), r[3].toString(), r[4].toString().split(","), duration, Integer.valueOf(r[6].toString())))
         }
         return transformedData.reversed()
     }
 }
 
-data class RecordData(val dateTime: Date, val time: Date, val description: String, val where: String, val medications: List<String>, val duration:Date?, val painLevel: Int)
+@RestController
+open class SaveController @Autowired constructor(private val sheetsService: Sheets) {
+    @RequestMapping("/save", method = arrayOf(RequestMethod.POST)) open fun index(@RequestBody data: SaveRequiredData): String {
+        val spreadsheetId = "1c1Y3z1PNcF6vtrresU2co9djEsjjcfBS4ygIVtUfhG4"
+
+        val writeData: List<List<Any>> = mutableListOf(listOf(data.time))
+
+        val endTimeCell = data.cell.split("!")
+        endTimeCell.get(1).toCharArray()[0] = 'F'
+
+        val vr = ValueRange().setRange(endTimeCell.toString()).setValues(writeData).setMajorDimension("ROWS")
+        sheetsService.spreadsheets().values()
+                .update(spreadsheetId, endTimeCell.toString(), vr)
+                .setValueInputOption("RAW")
+                .execute()
+
+        return "true"
+    }
+}
+
+data class RecordData(val cell: String, val dateTime: Date, val time: Date, val description: String, val where: String, val medications: List<String>, val duration:Date?, val painLevel: Int)
+data class SaveRequiredData(val cell: String, var time: String)

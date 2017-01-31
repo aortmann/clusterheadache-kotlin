@@ -135,13 +135,30 @@ app.controller('HomeController', ['$q', '$http', '$location', '$mdDialog', funct
             clickOutsideToClose: true,
             escapeToClose: true
         });
-        function DialogController($scope, $mdDialog, history) {
+        function DialogController($scope, $http, $mdDialog, history) {
             $scope.moment = moment;
             $scope.history = history;
+            $scope.time = new Date();
+            $scope.save = function(cell, time) {
+                $http({
+                    method: 'POST',
+                    url: '/save',
+                    dataType: 'json',
+                    data: {
+                        cell: cell,
+                        time: time
+                    },
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                $scope.close();
+            };
+
             $scope.close = function() {
                 $mdDialog.hide();
             };
-            $scope.time = new Date();
         }
     };
 
