@@ -1,7 +1,7 @@
 <md-dialog>
     <md-dialog-content class="md-dialog-content">
         <!--fa name="pencil-square-o" size="1" aria-hidden="true" class="edit-info-inside-dialog"></fa!-->
-        <h2>Detalle de {{moment(history.dateTime).format('L')}}</h2>
+        <h2><fa name="trash-o" size="medium" area-hidden="true" style="padding-right: 5px;" ng-click='deleteHistory(history);'></fa>Detalle de {{moment(history.dateTime).format('L')}}</h2>
         <p><b>Intensidad:</b> {{::history.painLevel}} ({{::getHumanizedPainLevel(history.painLevel)}})</p>
         <p><b>S&iacute;ntomas:</b> {{::history.description}}</p>
         <p><b>Medicaci&oacute;n:</b>
@@ -10,7 +10,9 @@
         </p>
         <p><b>Duraci&oacute;n:</b> {{::moment.duration(moment(history.time).diff(history.duration)).humanize()}}</p>
         <!--fa name="check-square-o" size="1" aria-hidden="true" class="close-info-inside-dialog" ng-click="close();"></fa!-->
-        <md-button ng-click="close()">Editar</md-button>
-        <md-button ng-click="close()">Cerrar</md-button>
+        <div class="margin: 0 auto;text-align: center">
+            <md-button ng-click="close()">Editar</md-button>
+            <md-button ng-click="close()">Cerrar</md-button>
+        </div>
     </md-dialog-content>
 </md-dialog>

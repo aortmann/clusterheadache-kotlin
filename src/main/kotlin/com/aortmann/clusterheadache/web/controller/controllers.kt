@@ -1,7 +1,7 @@
 package com.aortmann.clusterheadache.web.controller
 
 import com.google.api.services.sheets.v4.Sheets
-import com.google.api.services.sheets.v4.model.ValueRange
+import com.google.api.services.sheets.v4.model.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestBody
@@ -87,3 +87,30 @@ open class SaveController @Autowired constructor(private val sheetsService: Shee
 
 data class RecordData(val cell: String, val dateTime: Date, val time: Date, val description: String, val where: String, val medications: List<String>, val duration:Date?, val painLevel: Int)
 data class SaveRequiredData(val cell: String, var time: String)
+
+@RestController
+open class DeleteController @Autowired constructor(private val sheetsService: Sheets) {
+    @RequestMapping("/delete", method = arrayOf(RequestMethod.POST)) open fun index(@RequestBody cell: String): String {
+        val spreadsheetId = "1c1Y3z1PNcF6vtrresU2co9djEsjjcfBS4ygIVtUfhG4"
+
+
+        val batchRequests = BatchUpdateSpreadsheetRequest()
+
+        val requests = ArrayList<Request>()
+        val deleteDimensionRequest = DeleteDimensionRequest()
+        val dimensionRange = DimensionRange();
+        dimensionRange.sheetId = 0
+        dimensionRange.dimension = "ROWS"
+        val index = cell.replace("Datos![A-Z]".toRegex(), "").toInt()
+        dimensionRange.startIndex = index - 1
+        dimensionRange.endIndex = index
+
+        deleteDimensionRequest.range = dimensionRange;
+        requests.add(Request().setDeleteDimension(deleteDimensionRequest))
+        batchRequests.requests = requests
+
+        sheetsService.spreadsheets().batchUpdate(spreadsheetId, batchRequests).execute()
+
+        return "true"
+    }
+}

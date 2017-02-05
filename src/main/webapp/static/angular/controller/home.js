@@ -120,6 +120,21 @@ app.controller('HomeController', ['$q', '$http', '$location', '$mdDialog', funct
             $scope.close = function() {
                 $mdDialog.hide();
             };
+            $scope.deleteHistory = function(history) {
+                $http({
+                    method: 'POST',
+                    url: '/delete',
+                    dataType: 'json',
+                    data: history.cell,
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                }).then(function() {
+                    $scope.close();
+                    location.reload();
+                });
+            }
         }
     };
 
