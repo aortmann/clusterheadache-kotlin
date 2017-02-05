@@ -50,3 +50,5 @@
         <md-button ng-click="homeCtrl.send()">Enviar</md-button>
     </md-card-actions>
 </md-card>
+
+<img src="/static/img/OK_FO3_small.png" style="display:none" />

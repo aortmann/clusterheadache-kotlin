@@ -39,7 +39,8 @@ app.controller('HomeController', ['$q', '$http', '$location', '$mdDialog', funct
         });
 
         homeCtrl.reset();
-    }
+        homeCtrl.showOKDialog();
+    };
 
     var whereList = ["Casa", "Oficina", "Viajando"];
     homeCtrl.whereOptions = function (query) {
@@ -157,6 +158,23 @@ app.controller('HomeController', ['$q', '$http', '$location', '$mdDialog', funct
                 $scope.close();
             };
 
+            $scope.close = function() {
+                $mdDialog.hide();
+            };
+        }
+    };
+
+    homeCtrl.showOKDialog = function ($event) {
+        var parentEl = angular.element(document.body);
+        $mdDialog.show({
+            parent: parentEl,
+            targetEvent: $event,
+            templateUrl: '/static/angular/templates/ok-dialog.tmpl',
+            controller: DialogController,
+            clickOutsideToClose: true,
+            escapeToClose: true
+        });
+        function DialogController($scope, $http, $mdDialog) {
             $scope.close = function() {
                 $mdDialog.hide();
             };

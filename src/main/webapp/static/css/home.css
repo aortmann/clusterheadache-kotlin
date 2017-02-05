@@ -107,3 +107,16 @@ md-dialog md-dialog-content md-dialog-actions {
     float: right;
     padding: 10px;
 }
+
+md-dialog.ok-dialog {
+    min-width: 0px;
+}
+
+md-dialog.ok-dialog img {
+    width: 160px;
+}
+
+md-dialog.ok-dialog button {
+    display: block;
+    margin: 10px auto 0;
+}

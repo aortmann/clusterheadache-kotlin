@@ -1,6 +1,6 @@
 <md-dialog>
     <md-dialog-content class="md-dialog-content">
-        <fa name="pencil-square-o" size="1" aria-hidden="true" class="edit-info-inside-dialog"></fa>
+        <!--fa name="pencil-square-o" size="1" aria-hidden="true" class="edit-info-inside-dialog"></fa!-->
         <h2>Detalle de {{moment(history.dateTime).format('L')}}</h2>
         <p><b>Intensidad:</b> {{::history.painLevel}} ({{::getHumanizedPainLevel(history.painLevel)}})</p>
         <p><b>S&iacute;ntomas:</b> {{::history.description}}</p>
@@ -9,11 +9,8 @@
             <md-chips ng-model="::history.medications" readonly="true"><br /></md-chips>
         </p>
         <p><b>Duraci&oacute;n:</b> {{::moment.duration(moment(history.time).diff(history.duration)).humanize()}}</p>
-        <fa name="check-square-o" size="1" aria-hidden="true" class="close-info-inside-dialog" ng-click="close();"></fa>
+        <!--fa name="check-square-o" size="1" aria-hidden="true" class="close-info-inside-dialog" ng-click="close();"></fa!-->
+        <md-button ng-click="close()">Editar</md-button>
+        <md-button ng-click="close()">Cerrar</md-button>
     </md-dialog-content>
-    <!--md-dialog-actions>
-              <md-button ng-click="closeDialog()" class="md-primary">
-                Close Dialog
-              </md-button>
-            </md-dialog-actions-->
 </md-dialog>
