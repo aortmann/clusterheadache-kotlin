@@ -29,7 +29,7 @@ app.controller('HomeController', ['$q', '$http', '$location', '$mdDialog', funct
                 homeCtrl.addForm.time,
                 homeCtrl.addForm.feel,
                 homeCtrl.addForm.where,
-                [homeCtrl.addForm.medication],
+                homeCtrl.addForm.medication,
                 homeCtrl.addForm.duration,
                 homeCtrl.addForm.painLevel],
             headers: {
