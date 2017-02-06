@@ -34,5 +34,8 @@
                 }
             });
         </script>
+
+        <img src="/static/img/OK_FO3_small.png" style="display:none" />
+        <img src="/static/img/ANGRY_FO3_small.png" style="display:none" />
     </body>
 </html>

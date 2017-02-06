@@ -5,7 +5,7 @@
 		<#include "sections/add.ftl"/>
 	</div>
 
-	<div class="ext-content" ng-if="homeCtrl.getCurrentNavItem() == 'history'" ng-init="homeCtrl.getHistoryData()">
+	<div class="ext-content" ng-show="homeCtrl.getCurrentNavItem() == 'history'" ng-init="homeCtrl.getHistoryData()">
 		<#include "sections/history.ftl"/>
 	</div>
 

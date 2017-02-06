@@ -1,4 +1,4 @@
-app.controller('HomeController', ['$q', '$http', '$location', '$mdDialog', function ($q, $http, $location, $mdDialog) {
+app.controller('HomeController', ['$q', '$http', '$location', '$mdDialog', '$sce', function ($q, $http, $location, $mdDialog, $sce) {
     var homeCtrl = this;
     homeCtrl.moment = moment;
 
@@ -18,28 +18,36 @@ app.controller('HomeController', ['$q', '$http', '$location', '$mdDialog', funct
     homeCtrl.reset();
 
     homeCtrl.send = function () {
-        homeCtrl.addForm.date = moment(homeCtrl.addForm.date).format("DD/MM/YYYY");
-        homeCtrl.addForm.time = moment(homeCtrl.addForm.time).format("HH:mm");
-        $http({
-            method: 'POST',
-            url: '/add',
-            dataType: 'json',
-            data: [
-                homeCtrl.addForm.date,
-                homeCtrl.addForm.time,
-                homeCtrl.addForm.feel,
-                homeCtrl.addForm.where,
-                homeCtrl.addForm.medication,
-                homeCtrl.addForm.duration || "",
-                homeCtrl.addForm.painLevel],
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        });
+        if(homeCtrl.addForm.date && homeCtrl.addForm.time && homeCtrl.addForm.feel && homeCtrl.addForm.where && homeCtrl.addForm.medication && homeCtrl.addForm.painLevel && homeCtrl.addForm.painLevel > 0) {
+            homeCtrl.showAngryDialog($sce.trustAsHtml('&iexcl;Debes completar tus reportes pendientes antes de agregar uno nuevo!'));
+        }
+        else if(!homeCtrl.historyData[0].duration) {
+            homeCtrl.showAngryDialog($sce.trustAsHtml('&iexcl;Debes completar todos los datos!'));
+        }
+        else {
+            homeCtrl.addForm.date = moment(homeCtrl.addForm.date).format("DD/MM/YYYY");
+            homeCtrl.addForm.time = moment(homeCtrl.addForm.time).format("HH:mm");
+            $http({
+                method: 'POST',
+                url: '/add',
+                dataType: 'json',
+                data: [
+                    homeCtrl.addForm.date,
+                    homeCtrl.addForm.time,
+                    homeCtrl.addForm.feel,
+                    homeCtrl.addForm.where,
+                    homeCtrl.addForm.medication,
+                    homeCtrl.addForm.duration || "",
+                    homeCtrl.addForm.painLevel],
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
 
-        homeCtrl.reset();
-        homeCtrl.showOKDialog();
+            homeCtrl.reset();
+            homeCtrl.showOKDialog();
+        }
     };
 
     var whereList = ["Casa", "Oficina", "Viajando"];
@@ -190,6 +198,27 @@ app.controller('HomeController', ['$q', '$http', '$location', '$mdDialog', funct
             escapeToClose: true
         });
         function DialogController($scope, $http, $mdDialog) {
+            $scope.close = function() {
+                $mdDialog.hide();
+            };
+        }
+    };
+
+    homeCtrl.showAngryDialog = function (text, $event) {
+        var parentEl = angular.element(document.body);
+        $mdDialog.show({
+            parent: parentEl,
+            targetEvent: $event,
+            templateUrl: '/static/angular/templates/angry-dialog.tmpl',
+            locals: {
+                text: text
+            },
+            controller: DialogController,
+            clickOutsideToClose: true,
+            escapeToClose: true
+        });
+        function DialogController($scope, $mdDialog, text) {
+            $scope.text = text;
             $scope.close = function() {
                 $mdDialog.hide();
             };

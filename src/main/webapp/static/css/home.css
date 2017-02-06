@@ -108,15 +108,23 @@ md-dialog md-dialog-content md-dialog-actions {
     padding: 10px;
 }
 
-md-dialog.ok-dialog {
+md-dialog.ok-dialog. md-dialog.angry-dialog {
     min-width: 0px;
 }
 
-md-dialog.ok-dialog img {
+md-dialog.ok-dialog img, md-dialog.angry-dialog img {
     width: 160px;
 }
 
-md-dialog.ok-dialog button {
+md-dialog.ok-dialog button, md-dialog.angry-dialog button {
     display: block;
     margin: 10px auto 0;
+}
+
+md-dialog.angry-dialog img {
+    margin-left: 20px;
+}
+
+md-dialog.angry-dialog p {
+    max-width: 200px;
 }
