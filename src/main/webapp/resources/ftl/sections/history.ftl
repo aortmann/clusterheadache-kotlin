@@ -1,4 +1,4 @@
-<md-card ng-repeat="history in ::homeCtrl.historyData" ng-click="history.duration? homeCtrl.showMoreInfoDialog(history, $event) : homeCtrl.showPendingDialog(history, $event)" class="history-card">
+<md-card ng-repeat="history in homeCtrl.historyData" ng-click="history.duration? homeCtrl.showMoreInfoDialog(history, $event) : homeCtrl.showPendingDialog(history, $event)" class="history-card">
     <md-card-header>
         <md-card-header-text>
             <span class="md-title date-time-data">{{::homeCtrl.moment(history.dateTime).calendar()}}</span>

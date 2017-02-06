@@ -18,11 +18,11 @@ app.controller('HomeController', ['$q', '$http', '$location', '$mdDialog', '$sce
     homeCtrl.reset();
 
     homeCtrl.send = function () {
-        if(homeCtrl.addForm.date && homeCtrl.addForm.time && homeCtrl.addForm.feel && homeCtrl.addForm.where && homeCtrl.addForm.medication && homeCtrl.addForm.painLevel && homeCtrl.addForm.painLevel > 0) {
-            homeCtrl.showAngryDialog($sce.trustAsHtml('&iexcl;Debes completar tus reportes pendientes antes de agregar uno nuevo!'));
+        if(homeCtrl.addForm.date == undefined || homeCtrl.addForm.time == undefined || homeCtrl.addForm.feel == undefined || homeCtrl.addForm.where == undefined || homeCtrl.addForm.medication == undefined || homeCtrl.addForm.painLevel == undefined || homeCtrl.addForm.painLevel <= 0) {
+            homeCtrl.showAngryDialog($sce.trustAsHtml('&iexcl;Debes completar todos los datos!'));
         }
         else if(!homeCtrl.historyData[0].duration) {
-            homeCtrl.showAngryDialog($sce.trustAsHtml('&iexcl;Debes completar todos los datos!'));
+            homeCtrl.showAngryDialog($sce.trustAsHtml('&iexcl;Debes completar tus reportes pendientes antes de agregar uno nuevo!'));
         }
         else {
             homeCtrl.addForm.date = moment(homeCtrl.addForm.date).format("DD/MM/YYYY");
@@ -43,6 +43,8 @@ app.controller('HomeController', ['$q', '$http', '$location', '$mdDialog', '$sce
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 }
+            }).then(function() {
+                homeCtrl.getHistoryData();
             });
 
             homeCtrl.reset();
@@ -61,7 +63,9 @@ app.controller('HomeController', ['$q', '$http', '$location', '$mdDialog', '$sce
     };
 
     homeCtrl.getHistoryData = function () {
-        $http.get("/history").then(function (response) {
+        $http.get("/history", {
+            cache: false
+        }).then(function (response) {
             homeCtrl.historyData = response.data;
         });
     };
@@ -129,19 +133,7 @@ app.controller('HomeController', ['$q', '$http', '$location', '$mdDialog', '$sce
                 $mdDialog.hide();
             };
             $scope.deleteHistory = function(history) {
-                $http({
-                    method: 'POST',
-                    url: '/delete',
-                    dataType: 'json',
-                    data: history.cell,
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                }).then(function() {
-                    $scope.close();
-                    location.reload();
-                });
+                homeCtrl.showDeleteHistoryConfirmationDialog(history);
             }
         }
     };
@@ -223,6 +215,29 @@ app.controller('HomeController', ['$q', '$http', '$location', '$mdDialog', '$sce
                 $mdDialog.hide();
             };
         }
+    };
+
+    homeCtrl.showDeleteHistoryConfirmationDialog = function(history, ev) {
+        var confirm = $mdDialog.confirm()
+            .htmlContent($sce.trustAsHtml('&iquest;Est&aacute;s seguro que deseas eliminar esta tarjeta?'))
+            .targetEvent(ev)
+            .ok('Eliminar')
+            .cancel('Cancelar');
+
+        $mdDialog.show(confirm).then(function() {
+            $http({
+                method: 'POST',
+                url: '/delete',
+                dataType: 'json',
+                data: history.cell,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(function() {
+                location.reload();
+            });
+        }, function() {});
     };
 
     function createFilterFor(query) {
