@@ -67,7 +67,7 @@ md-card-footer > span {
     color: #FFEB3B;
 }
 
-.edit-info-inside-dialog {
+.right-icon-inside-dialog {
     cursor: pointer;
     position: absolute;
     right: 0;

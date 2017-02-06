@@ -1,7 +1,8 @@
 <md-dialog>
     <md-dialog-content class="md-dialog-content">
         <!--fa name="pencil-square-o" size="1" aria-hidden="true" class="edit-info-inside-dialog"></fa!-->
-        <h2><fa name="trash-o" size="medium" area-hidden="true" style="padding-right: 5px;" ng-click='deleteHistory(history);'></fa>Detalle de {{moment(history.dateTime).format('L')}}</h2>
+        <fa name="trash-o" size="large" area-hidden="true" class="right-icon-inside-dialog" ng-click='deleteHistory(history);'></fa>
+        <h2>Detalle de {{moment(history.dateTime).format('L')}}</h2>
         <p><b>Intensidad:</b> {{::history.painLevel}} ({{::getHumanizedPainLevel(history.painLevel)}})</p>
         <p><b>S&iacute;ntomas:</b> {{::history.description}}</p>
         <p><b>Medicaci&oacute;n:</b>
