@@ -219,7 +219,7 @@ app.controller('HomeController', ['$q', '$http', '$location', '$mdDialog', '$sce
 
     homeCtrl.showDeleteHistoryConfirmationDialog = function(history, ev) {
         var confirm = $mdDialog.confirm()
-            .htmlContent($sce.trustAsHtml('&iquest;Est&aacute;s seguro que deseas eliminar esta tarjeta?'))
+            .htmlContent($sce.trustAsHtml('<b>&iquest;Est&aacute;s seguro que deseas eliminar esta tarjeta?</b>'))
             .targetEvent(ev)
             .ok('Eliminar')
             .cancel('Cancelar');

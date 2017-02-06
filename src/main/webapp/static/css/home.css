@@ -128,3 +128,7 @@ md-dialog.angry-dialog img {
 md-dialog.angry-dialog p {
     max-width: 200px;
 }
+
+.md-confirm-button, .md-cancel-button {
+    color: black !important;
+}
