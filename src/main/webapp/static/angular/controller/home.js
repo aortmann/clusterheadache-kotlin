@@ -171,6 +171,7 @@ app.controller('HomeController', ['$q', '$http', '$location', '$mdDialog', '$sce
                 });
 	            history.duration = time;
                 $scope.close();
+                homeCtrl.showOKDialog();
             };
 
             $scope.close = function() {
