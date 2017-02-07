@@ -26,8 +26,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/es.js"></script>
         <script src="https://cdn.rawgit.com/andrea-vega/mdPickers/master/dist/mdPickers.min.js"></script>
 
-        <script src="/static/angular/app.js?v=0"></script>
-        <script src="/static/angular/controller/home.js?v=0"></script>
+        <script src="/static/angular/app.js?v=1"></script>
+        <script src="/static/angular/controller/home.js?v=1"></script>
 
         <script type="application/javascript">
             moment.locale('es', {
